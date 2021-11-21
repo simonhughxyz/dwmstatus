@@ -20,7 +20,16 @@ _date() {
     _print_module "${f_color}" "${icon}" " ${date}"
 }
 
+_memory() {
+    f_color="#eeee00"
+    icon=""
+    memory="$( free -h | awk '/Mem:/ {print $3}' )"
+
+    _print_module "${f_color}" "${icon}" " ${memory}"
+}
+
 case "$1" in
     time) _time;;
     date) _date;;
+    memory) _memory;;
 esac
