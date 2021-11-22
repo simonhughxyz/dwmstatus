@@ -28,8 +28,29 @@ _memory() {
     _print_module "${f_color}" "${icon}" " ${memory}"
 }
 
+_uptime() {
+    f_color="#ff55bb"
+    icon="" 
+
+    # calculate time since boot
+    upsec="$(( $( date '+%s' ) - $( date -d "$( who -b | sed 's/^.*system boot[ ]*//' )" "+%s" ) ))"
+    updays="$(( $upsec / 86400 ))"
+    uphours="$(( $upsec / 3600 % 24 ))"
+    upmin="$(( $upsec / 60 % 60 ))"
+
+    # display message depending on amount of time passed
+    case "${updays}${uphours}" in
+        00) message="${upmin}m";; # less than 1 hour
+        0*) message="${uphours}h ${upmin}m";; # less than 1 day
+        *) message="${updays}d ${uphours}h";; # more than 1 day
+    esac
+
+    _print_module "${f_color}" "${icon}" " ${message}"
+}
+
 case "$1" in
     time) _time;;
     date) _date;;
     memory) _memory;;
+    uptime) _uptime;;
 esac
