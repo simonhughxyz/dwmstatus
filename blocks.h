@@ -5,6 +5,7 @@ static const Block blocks[] = {
 	{"", "dwmstatus memory",           					                10,		0},
 	{"", "dwmstatus date",           					                60,		0},
 	{"", "dwmstatus time", 			            		                10,		0},
+	{"", "dwmstatus battery",	                                        60,		0},
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.
