@@ -66,6 +66,30 @@ _date() {
     _print_module "${f_color}" "${icon}" " ${date}"
 }
 
+_volume() {
+    f_color="#10e070"
+    mute_color="#dd1111"
+
+    [ $1 ] && vol="$1" || vol="$( volume )"
+
+	if [ "$vol" = "mute" ]; then
+        f_color=$mute_color
+        vol=""
+        icon=""
+    elif [ "$vol" -gt "100" ]; then
+		icon=" "
+        vol="${vol}%"
+	elif [ "$vol" -lt "50" ]; then
+		icon=" "
+        vol="${vol}%"
+	else
+		icon=" "
+        vol="${vol}%"
+	fi
+
+    _print_module "${f_color}" "${icon}" "${vol}${percentage}"
+}
+
 _memory() {
     f_color="#eeee00"
     icon=""
@@ -98,6 +122,7 @@ case "$1" in
     battery) _battery | tr '\n' ' ';;
     time) _time;;
     date) _date;;
+    volume) _volume;;
     memory) _memory;;
     uptime) _uptime;;
 esac
