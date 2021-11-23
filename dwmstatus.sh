@@ -118,6 +118,24 @@ _uptime() {
     _print_module "${f_color}" "${icon}" " ${message}"
 }
 
+_keystate() {
+    f_color="#ff1111"
+
+    lockline=$(xset -q | grep "Num Lock")
+
+    caplock=$(echo "$lockline" | awk '{print $4}')
+    numlock=$(echo "$lockline" | awk '{print $8}')
+    scrolllock=$(echo "$lockline" | awk '{print $12}')
+
+    message=""
+
+    [ "$caplock" = "on" ] && message="CAPS"
+    [ "$numlock" = "on" ] && message="NUM"
+    [ "$scrolllock" = "on" ] && message="SCROLL"
+
+    [ -z "$message" ] || _print_module "${f_color}" "" "^c${f_color}^[${message}]"
+}
+
 case "$1" in
     battery) _battery | tr '\n' ' ';;
     time) _time;;
@@ -125,4 +143,5 @@ case "$1" in
     volume) _volume;;
     memory) _memory;;
     uptime) _uptime;;
+    keystate) _keystate;;
 esac
