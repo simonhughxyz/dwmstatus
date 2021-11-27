@@ -25,6 +25,11 @@ _run() {
     exit 0
 }
 
+_kill() {
+    killall -s TERM "$PNAME"
+}
+
 case "$1" in
     run) _run;;
+    kill) _kill;;
 esac
