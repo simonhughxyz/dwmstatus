@@ -2,6 +2,7 @@
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
 	{"", "dwmmodules keystate",           					             0,	   11},
+	{"", "dwmmodules net",          					                10,     0},
 	{"", "dwmmodules uptime",          					                60,		0},
 	{"", "dwmmodules memory",          					                10,		0},
 	{"", "dwmmodules volume",          					                 0,    10},

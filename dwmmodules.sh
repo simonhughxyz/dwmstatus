@@ -118,6 +118,26 @@ _uptime() {
     _print_module "${f_color}" "${icon}" " ${message}"
 }
 
+_net() {
+    f_color="#ffffff"
+    eth_icon=''
+    wifi_icon=''
+    no_connection_icon=''
+    icon=''
+
+    # check if ethernet connection is up
+    grep -xq 'up' /sys/class/net/e*/operstate 2>/dev/null && icon="${eth_icon} "
+
+    # check if wifi connection if up
+    if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null; then
+        icon="${icon}${wifi_icon}"
+    elif [ -z "${icon}" ]; then
+        icon="${no_connection_icon}"
+    fi
+
+    _print_module "${f_color}" "${icon}" ""
+}
+
 _keystate() {
     f_color="#ff1111"
 
@@ -137,6 +157,7 @@ _keystate() {
 }
 
 case "$1" in
+    net) _net ;;
     battery) _battery | tr '\n' ' ';;
     time) _time;;
     date) _date;;
