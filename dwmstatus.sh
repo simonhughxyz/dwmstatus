@@ -21,7 +21,7 @@ _run() {
         esac
     done &
     
-    ${PWD}/dwmblocks & wait
+    dwmblocks & wait
     exit 0
 }
 
